@@ -23,10 +23,11 @@ public class ProjectionModelTrainer {
 	private Map<Matrix, Matrix> negativeMap;
 	
 	private final int dimension=50;
+	private final String w2vModel="/Users/bear/Documents/workspace/Hearst/javaSkip50.model";
 	
 	public ProjectionModelTrainer() throws IOException {
 		word2vec = new Word2VEC();
-		word2vec.loadJavaModel("/Users/bear/Documents/workspace/Hearst/javaSkip50.model");
+		word2vec.loadJavaModel(w2vModel);
 		System.out.println("word2vec load");
 		mMatrixPos=new Matrix(dimension, dimension, Math.random());
 		mMatrixNeg=new Matrix(dimension, dimension, Math.random());
@@ -84,8 +85,8 @@ public class ProjectionModelTrainer {
 	
 	public void trainPositive() throws IOException {
 		System.out.println("start training...");
-		double lambda=0.01;
-		double eta=0.0001;
+		double lambda=0.0001;
+		double eta=0.00025;
 		int iterNo=0;
 		while (true) {
 			Matrix mUpdate=new Matrix(dimension,dimension,0);
@@ -101,7 +102,10 @@ public class ProjectionModelTrainer {
 			Matrix nNew=mMatrixPos.minus(mUpdate.times(eta));
 			Matrix bNew=bMatrixPos.minus(bUpdate.times(eta));
 
-			if (mMatrixPos.minus(nNew).normF()<0.001 && bMatrixPos.minus(bNew).normF()<0.001) {
+			System.out.println(mMatrixPos.minus(nNew).normF());
+			System.out.println(bMatrixPos.minus(bNew).normF());
+
+			if (mMatrixPos.minus(nNew).normF()<0.01 && bMatrixPos.minus(bNew).normF()<0.01) {
 				printM(mMatrixPos, "m_positive");
 				printM(bMatrixPos, "b_positive");
 				break;
@@ -117,8 +121,8 @@ public class ProjectionModelTrainer {
 	
 	public void trainNegative() throws IOException {
 		System.out.println("start training...");
-		double lambda=0.01;
-		double eta=0.0001;
+		double lambda=0.0001;
+		double eta=0.00025;
 		int iterNo=0;
 		while (true) {
 			Matrix mUpdate=new Matrix(dimension,dimension,0);
@@ -134,7 +138,10 @@ public class ProjectionModelTrainer {
 			Matrix nNew=mMatrixNeg.minus(mUpdate.times(eta));
 			Matrix bNew=bMatrixNeg.minus(bUpdate.times(eta));
 
-			if (mMatrixNeg.minus(nNew).normF()<0.001 && bMatrixNeg.minus(bNew).normF()<0.001) {
+			System.out.println(mMatrixPos.minus(nNew).normF());
+			System.out.println(bMatrixPos.minus(bNew).normF());
+			
+			if (mMatrixNeg.minus(nNew).normF()<0.01 && bMatrixNeg.minus(bNew).normF()<0.01) {
 				printM(mMatrixNeg, "m_negative");
 				printM(bMatrixNeg, "b_negative");
 				break;

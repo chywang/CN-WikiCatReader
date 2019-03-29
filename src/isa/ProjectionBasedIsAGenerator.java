@@ -20,23 +20,27 @@ public class ProjectionBasedIsAGenerator {
 	
 	private POSTagger tag;
 	private Word2VEC word2vec;
-	private final int dimension=50;
 	private Matrix mMatrixPos;
 	private Matrix mMatrixNeg;
+	private Matrix bMatrixPos;
+	private Matrix bMatrixNeg;
 	private Map<String, Set<String>> map;
+	
+	private final int dimension=50;
+	private final String w2vModel="/Users/bear/Documents/workspace/Hearst/javaSkip50.model";
 	
 	public ProjectionBasedIsAGenerator() throws Exception {
 		tag = new POSTagger("fdnlp/seg.m","fdnlp/pos.m");
 		//load word2vec
 		word2vec = new Word2VEC();
-		word2vec.loadJavaModel("/Users/bear/Documents/workspace/Hearst/javaSkip50.model");
+		word2vec.loadJavaModel(w2vModel);
 		System.out.println("word2vec load ok!");
 		//load matrix for projection
 		loadMatrix();
 		System.out.println("matrix load ok!");
-		//load data
+		//load unlabeled data
 		map=new HashMap<String,Set<String>>();
-		BufferedReader br = new BufferedReader(new FileReader(new File("rule-based-isa-remain.txt")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("cat-1.txt")));
 		String line;
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
@@ -52,7 +56,7 @@ public class ProjectionBasedIsAGenerator {
 	}
 	
 	private void loadMatrix() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("positive.txt")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("proj/m_positive.txt")));
 		String line;
 		double[][] ds=new double[dimension][dimension];
 		int count=0;
@@ -64,7 +68,8 @@ public class ProjectionBasedIsAGenerator {
 		}
 		br.close();
 		mMatrixPos=new Matrix(ds);
-		br = new BufferedReader(new FileReader(new File("negative.txt")));
+		
+		br = new BufferedReader(new FileReader(new File("proj/m_negative.txt")));
 		ds=new double[dimension][dimension];
 		count=0;
 		while ((line = br.readLine()) != null) {
@@ -75,10 +80,30 @@ public class ProjectionBasedIsAGenerator {
 		}
 		br.close();
 		mMatrixNeg=new Matrix(ds);
+		
+		br = new BufferedReader(new FileReader(new File("proj/b_positive.txt")));
+		ds=new double[dimension][1];
+		count=0;
+		while ((line = br.readLine()) != null) {
+			ds[count][0]=Double.parseDouble(line);
+			count++;
+		}
+		br.close();
+		bMatrixPos=new Matrix(ds);
+		
+		br = new BufferedReader(new FileReader(new File("proj/b_negative.txt")));
+		ds=new double[dimension][1];
+		count=0;
+		while ((line = br.readLine()) != null) {
+			ds[count][0]=Double.parseDouble(line);
+			count++;
+		}
+		br.close();
+		bMatrixNeg=new Matrix(ds);
 	}
 	
 	public void predict() throws FileNotFoundException {
-		PrintWriter pw=new PrintWriter("projection-based-isa.txt");
+		PrintWriter pw=new PrintWriter("proj-predict-scores.txt");
 		for (String s:map.keySet()) {
 			Set<String> categories=map.get(s);
 			for (String c:categories) {
@@ -102,8 +127,8 @@ public class ProjectionBasedIsAGenerator {
 						ds2[i][0]=hf2[i];
 					Matrix hyperM=new Matrix(ds2);
 					
-					double positiveScore=mMatrixPos.times(hypoM).minus(hyperM).normF();
-					double negaticeScore=mMatrixNeg.times(hypoM).minus(hyperM).normF();
+					double positiveScore=mMatrixPos.times(hypoM).plus(bMatrixPos).minus(hyperM).normF();
+					double negaticeScore=mMatrixNeg.times(hypoM).plus(bMatrixNeg).minus(hyperM).normF();
 					double prob=Math.tanh(negaticeScore-positiveScore);
 					
 					pw.println(s+"\t"+c+"\t"+prob);
@@ -148,7 +173,9 @@ public class ProjectionBasedIsAGenerator {
 			}
 		}
 		Map<String, Stat> map=new HashMap<String, Stat>();
-		BufferedReader br = new BufferedReader(new FileReader(new File("projection-based-isa.txt")));
+		
+		//projection based scores
+		BufferedReader br = new BufferedReader(new FileReader(new File("proj-predict-scores.txt")));
 		String line;
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
@@ -165,6 +192,7 @@ public class ProjectionBasedIsAGenerator {
 		}
 		br.close();
 		
+		//rule based scores
 		br = new BufferedReader(new FileReader(new File("rule-based-isa.txt")));
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
@@ -188,8 +216,8 @@ public class ProjectionBasedIsAGenerator {
 		*/
 			
 		double lambda=0.7;
-		br = new BufferedReader(new FileReader(new File("projection-based-isa.txt")));
-		PrintWriter pw=new PrintWriter("projection-based-isa-collective.txt");
+		br = new BufferedReader(new FileReader(new File("proj-predict-scores.txt")));
+		PrintWriter pw=new PrintWriter("proj-predict-scores.txt");
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
 			String entity=items[0];

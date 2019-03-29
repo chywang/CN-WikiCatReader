@@ -56,7 +56,7 @@ public class RuleBasedIsAGenerator {
 		Set<String> whitelist=loadWhitelist();
 		BufferedReader br=new BufferedReader(new FileReader(new File("cat.txt")));
 		PrintWriter pw=new PrintWriter("rule-based-isa.txt");
-		PrintWriter pw1=new PrintWriter("rule-based-isa-remain.txt");
+		PrintWriter pw1=new PrintWriter("cat-1.txt");
 		String line;
 		int count=0;
 		while ((line=br.readLine())!=null) {

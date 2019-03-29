@@ -20,11 +20,17 @@ public class HypernymExpander {
 				wikiDic.add(items[0]);
 		}
 		br.close();
+		br=new BufferedReader(new FileReader(new File("whitelist.txt")));
+		while ((line=br.readLine())!=null) {
+			if (line.length()>=2)
+				wikiDic.add(line);
+		}
+		br.close();
 		System.out.println(wikiDic.size());
 
 		int count=0;
-		br = new BufferedReader(new FileReader(new File("total-isa-output.txt")));
-		PrintWriter pw=new PrintWriter("total-isa-output-expand.txt");
+		br = new BufferedReader(new FileReader(new File("total-isa.txt")));
+		PrintWriter pw=new PrintWriter("total-isa-expand.txt");
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
 			String entity=items[0];

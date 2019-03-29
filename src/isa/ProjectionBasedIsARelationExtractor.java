@@ -47,7 +47,7 @@ public class ProjectionBasedIsARelationExtractor {
 		}
 		br.close();
 		
-		br=new BufferedReader(new FileReader(new File("projection-based-isa-collective.txt")));
+		br=new BufferedReader(new FileReader(new File("proj-predict-scores-collect.txt")));
 		while ((line = br.readLine()) != null) {
 			String[] items=line.split("\t");
 			String entity=items[0];
@@ -55,7 +55,7 @@ public class ProjectionBasedIsARelationExtractor {
 			if (filtered(entity, category, blacklist))
 				continue;
 			double weight=Double.parseDouble(items[2]);
-			if (weight>0) {
+			if (weight>0.05) {
 				if (!totalMap.containsKey(entity))
 					totalMap.put(entity, new HashSet<String>());
 				Set<String> categories=totalMap.get(entity);
@@ -65,7 +65,7 @@ public class ProjectionBasedIsARelationExtractor {
 		}
 		br.close();
 		int count=0;
-		PrintWriter pw=new PrintWriter("total-isa-output.txt");
+		PrintWriter pw=new PrintWriter("total-isa.txt");
 		for (String entity:totalMap.keySet()) {
 			if (totalMap.get(entity).size()==0)
 				continue;
