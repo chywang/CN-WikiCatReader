@@ -12,8 +12,9 @@
 
 **APIs**
 
-Please run the programs according to the following order.
+Part I: Hypernymy Relation Extraction
 
+Please run the programs according to the following order.
 
 + RuleBasedIsAGenerator (in the isa package)
 
@@ -47,6 +48,41 @@ Final Output:
 
 1. total-isa-expand.txt: The extracted is-a relations from Chinese Wikipedia categories.
 
+
+Part II: Pattern-based Non-hypernymy Relation Extraction
+
+Please run the programs according to the following order.
+
++ WikiDicGenerator (in the nontaxonomic package)
+
+Required Input:
+
+1. cat.txt: Entity and category names in Chinese Wikipedia.
+
+It generates dictionaries of Chinese Wikipedia entities.
+
++ RelationPatternMiner (in the nontaxonomic package)
+
+It extracts frequent category patterns from Chinese Wikipedia categories.
+
++ RelationPatternConfCalculator (in the nontaxonomic package)
+
+It computes confidence scores for frequent category patterns.
+
++ VerbBasedFilter (in the nontaxonomic package)
+
+It selects confident category patterns based on threshold filering and POS rules.
+
++ VerbBasedRelationExtractor (in the nontaxonomic package)
+
+It extracts non-hypernymy relations from selected patterns.
+
+Final Outputs:
+
+1. verb-relations.txt
+
+2. verb-relations-infer.txt
+
 **Dependencies**
 
 1. This software is run in the JaveSE-1.8 environment. With a large probability, it runs properly in other versions of JaveSE as well. However, there is no guarantee.
@@ -60,7 +96,7 @@ Final Output:
 
 1. This is an updated version of the algorithm proposed in our paper. We make slight changes and add more heuristics to extract more is-a relations. In total, we extract 1.94M is-a relation triples, instead of 1.12M, as reported in the paper.
 
-2. We are developing better algorithms for non-taxonomic relations from Chinese Wikipedia categories. The codes will be added to this project.
+2. We are developing better algorithms for non-taxonomic relations from Chinese Wikipedia categories. The codes will be added to this project continuously.
 
 **Citations**
 
