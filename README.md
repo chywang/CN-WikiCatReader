@@ -87,6 +87,10 @@ Final Outputs:
 
 Please run the programs according to the following order.
 
++ WikiSentenceExtractor (in the wiki package)
+
+Extract all the sentences from the Chinese Wikipedia data dump (xml format).
+
 + Indexer and Searcher (in the lucene package)
 
 Build sentence-level inverted index using Apache Lucene.
