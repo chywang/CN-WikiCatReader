@@ -12,7 +12,7 @@
 
 **APIs**
 
-Part I: Hypernymy Relation Extraction
+#### Part I: Hypernymy Relation Extraction
 
 Please run the programs according to the following order.
 
@@ -49,7 +49,7 @@ Final Output:
 1. total-isa-expand.txt: The extracted is-a relations from Chinese Wikipedia categories.
 
 
-Part II: Pattern-based Non-hypernymy Relation Extraction
+#### Part II: Pattern-based Non-hypernymy Relation Extraction
 
 Please run the programs according to the following order.
 
@@ -82,6 +82,16 @@ Final Outputs:
 1. verb-relations.txt
 
 2. verb-relations-infer.txt
+
+#### Part III: Data-driven Non-hypernymy Relation Extraction
+
+Please run the programs according to the following order.
+
++ Indexer and Searcher (in the lucene package)
+
+Build sentence-level inverted index using Apache Lucene.
+
+>NOTE: Due to the large size of the texts and index, we do not provide the data here. Users can download the newest Wikipedia data dumps to build the index using our code.
 
 **Dependencies**
 
