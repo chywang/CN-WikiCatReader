@@ -107,6 +107,7 @@ Run the modifier-sensitive phrase segmentation algorithm.
 
 Run the candidate relation generation algorithm. 
 
+>NOTE: Some of the codes of this project are missing due to unexpected incident. We are currently re-writing the codes. Readers can also find part of the extracted relations in the ``alg3_data'' folder.
 
 **Dependencies**
 
@@ -121,7 +122,7 @@ Run the candidate relation generation algorithm.
 
 1. This is an updated version of the algorithm proposed in our paper. We make slight changes and add more heuristics to extract more is-a relations. In total, we extract 1.94M is-a relation triples, instead of 1.12M, as reported in the paper.
 
-2. We are developing better algorithms for non-taxonomic relations from Chinese Wikipedia categories. The codes will be added to this project continuously.
+2. The codes will be added to this project continuously.
 
 **Citations**
 
