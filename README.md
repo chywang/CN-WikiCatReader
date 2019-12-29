@@ -112,7 +112,7 @@ Run the candidate relation generation algorithm.
 
 1. This software is run in the JaveSE-1.8 environment. With a large probability, it runs properly in other versions of JaveSE as well. However, there is no guarantee.
 
-2. It requires the FudanNLP toolkit for Chinese NLP analysis (https://github.com/FudanNLP/fnlp/), and the JAMA library for matrix computation (https://math.nist.gov/javanumerics/jama/). We use Jama-1.0.3.jar in this project.
+2. It requires the FudanNLP toolkit for Chinese NLP analysis (https://github.com/FudanNLP/fnlp/), Apache Lucene (version 4.7.2) (https://lucene.apache.org) and the JAMA library for matrix computation (https://math.nist.gov/javanumerics/jama/). We use Jama-1.0.3.jar in this project.
 
 3. Please refer to the JAVA implementation of the Word2Vec model here: https://github.com/NLPchina/Word2VEC_java.
 
