@@ -97,6 +97,17 @@ Build sentence-level inverted index using Apache Lucene.
 
 >NOTE: Due to the large size of the texts and index, we do not provide the data here. Users can download the newest Wikipedia data dumps to build the index using our code.
 
++ ModSegmenter (in the modseg package)
+
+Run the modifier-sensitive phrase segmentation algorithm. 
+
+>NOTE: Due to the large size of the language models, we do not provide the data here.
+
++ CandidateRelGen (in the modseg package)
+
+Run the candidate relation generation algorithm. 
+
+
 **Dependencies**
 
 1. This software is run in the JaveSE-1.8 environment. With a large probability, it runs properly in other versions of JaveSE as well. However, there is no guarantee.
