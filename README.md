@@ -97,17 +97,17 @@ Build sentence-level inverted index using Apache Lucene.
 
 >NOTE: Due to the large size of the texts and index, we do not provide the data here. Users can download the newest Wikipedia data dumps to build the index using our code.
 
-+ ModSegmenter (in the modseg package)
++ MPS: ModSegmenter (in the mps package)
 
 Run the modifier-sensitive phrase segmentation algorithm. 
 
 >NOTE: Due to the large size of the language models, we do not provide the data here.
 
-+ CandidateRelGen (in the modseg package)
++ CRG: CandidateRelGen, RawRelationCount, CatVerbBasedExtractor, CatVerbComplexBasedExtractor (in the crg package)
 
 Run the candidate relation generation algorithm. 
 
->NOTE: Some of the codes of this project are missing due to unexpected incident. We are currently re-writing the codes. Readers can also find part of the extracted relations in the ``alg3_data'' folder.
+>NOTE: Extracted candidate full relations are in the "ore_data" folder.
 
 **Dependencies**
 
