@@ -118,12 +118,6 @@ Run the candidate relation generation algorithm.
 3. Please refer to the JAVA implementation of the Word2Vec model here: https://github.com/NLPchina/Word2VEC_java.
 
 
-**More Notes on the Algorithm** 
-
-1. This is an updated version of the algorithm proposed in our paper. We make slight changes and add more heuristics to extract more is-a relations. In total, we extract 1.94M is-a relation triples, instead of 1.12M, as reported in the paper.
-
-2. The codes will be added to this project continuously.
-
 **Citations**
 
 If you find this software useful for your research, please cite the following papers.
