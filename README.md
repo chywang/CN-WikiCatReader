@@ -107,7 +107,17 @@ Run the modifier-sensitive phrase segmentation algorithm.
 
 Run the candidate relation generation algorithm. 
 
->NOTE: Extracted candidate full relations are in the "ore_data" folder.
++ MRPD: RelationGenerator (in the mrpd package)
+
+>NOTE: The algorithm of the paper is directly implemented over Baidu Baike. We are unable to provide the data and processing details here due to copyright issues. Instead, we release a simple heurisitc algorithm to extract commonsense relations from Wikipedia categories.
+
+Final Output:
+
+1. dd_extracted_relations.txt
+
+**More Notes on the Algorithms**
+
+The codes in this projects are updated versions of the algorithms proposed in our papers. We make slight changes and add more heuristics to extract more semantic relations. 
 
 **Dependencies**
 
